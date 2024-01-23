@@ -2,4 +2,4 @@
 <br>
 chat app using MERN tailwind MUI Socket.io
 <br>
-Author - YUGAL KISHOR 
+Author - YUGAL KISHOR  YADAV
