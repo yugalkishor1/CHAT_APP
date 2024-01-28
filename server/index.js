@@ -3,14 +3,20 @@ import express  from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import { userModel } from "../model/userModel.js";
+import userRouter from "./routes/userRoute.js"
 dotenv.config();
-import userRoute from "./routes/userRoute.js"
+
 
 const port = process.env.PORT || 3000;
 const app = express()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.use(cors())
-app.use("/api/auth",userRoute)
+app.use("/api/auth",userRouter)
 
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
@@ -20,7 +26,6 @@ mongoose.connect(process.env.MONGO_URL)
     console.log("mongodb connection error",err);
 })
     
-
 
 
 app.get("/",function(req,res){

@@ -38,21 +38,27 @@ function Register() {
     return true
   }
 
-
-
  const handleSubmit = async (e) => {
   e.preventDefault();
   if(handleValidation()) {
-
-    const response = await axios.post(registerRoute,{
-      username,email,password
-    })
-
+    // console.log("validation",registerRoute);
+    try {
+      const response = await axios.post(registerRoute,{
+        username,email,password
+      });
+      console.log("server responed",response.data);
+      
     setName("")
     setEmail("")
     setPassword("")
     setUsername("")
     setConfirmPassword("")
+
+    } catch (error) {
+      console.log(error.message);
+    }
+   
+
 
   }
   
