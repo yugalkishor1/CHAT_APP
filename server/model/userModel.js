@@ -1,30 +1,31 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const userSchema = new mongoose.Schema({
-    username:{
-        type:String,
+const userSchema = new Schema({
+    username: {
+        type: String,
         require,
-        unique:true
+        unique: true
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
         require,
-        unique:true
+        unique: true
     },
-    password:{
-        type:String,
+    password: {
+        type: String,
         require
     },
-    isAvataeImageset:{
-        type:Boolean,
-        default:false
+    isAvataeImageset: {
+        type: Boolean,
+        default: false
     },
-    avtarImage:{
-        type:String,
-        default:""
+    avtarImage: {
+        type: String,
+        default: ""
     }
-})
+});
 
-const userModel = mongoose.model("userModel",userSchema)
+const userModel = mongoose.model("userModel", userSchema);
 
-export {userModel}
+module.exports = { userModel };
