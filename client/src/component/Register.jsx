@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import axios from "axios"
+import {useNavigate} from "react-router-dom"
 import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { registerRoute } from '../Routes/APIRputes'
 
 function Register() {
+
+  const navigate = useNavigate();
 
   const [name,setName] = useState("")
   const [username,setUsername] = useState("")
@@ -39,33 +42,35 @@ function Register() {
   }
 
  const handleSubmit = async (e) => {
-  e.preventDefault();
-  if(handleValidation()) {
-    // console.log("validation",registerRoute);
-    try {
-      const response = await axios.post(registerRoute,{
-        username,email,password
-      });
-      console.log("server responed",response.data);
-      
-    setName("")
-    setEmail("")
-    setPassword("")
-    setUsername("")
-    setConfirmPassword("")
+    e.preventDefault();
+    if(handleValidation()) {
+      try {
+        const {data} = await axios.post(registerRoute,{
+          username,email,password
+        });
 
-    } catch (error) {
-      console.log(error.message);
+        if(data.status){
+          localStorage.setItem("chat-app-user",JSON.stringify(data.userResponse));
+
+          (function notify(){
+            toast.success(`${data.userResponse.username} successfully Registered`)
+          })();
+          
+          setName("")
+          setEmail("")
+          setPassword("")
+          setUsername("")
+          setConfirmPassword("")
+          navigate("/")
+        }else{
+          (function notify(){
+            toast.error(`${data.message} `,{autoClose:3000})
+          })()
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
     }
-   
-
-
-  }
-  
-  const data =  {name,username,email,password}
-
-  
-
  }
   
 
