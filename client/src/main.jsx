@@ -4,6 +4,7 @@ import {RouterProvider , createBrowserRouter} from "react-router-dom"
 import Home from './component/Home'
 import Register from './component/Register'
 import Login from './component/Login'
+import Chat from "./component/Chat"
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     path:"/login",
     element:<Login/>,
   },
+  {
+    path:"/chat",
+    element:<Chat/>
+  }
 ])
 
 // const router = createBrowserRouter([

@@ -1,7 +1,6 @@
 const { userModel } = require("../model/userModel.js");
 const bcrypt = require("bcrypt")
 
-
 const register = async (req, res, next) => {
     const {username,email,password} = req.body;
 
@@ -14,7 +13,7 @@ const register = async (req, res, next) => {
         if(emailCheck) 
             return res.json({message:"Email Already used",status:false})
 
-        const salt = await bcrypt.genSalt();
+        const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password,salt)
 
         const user = await userModel.create({
@@ -29,4 +28,29 @@ const register = async (req, res, next) => {
     }
 };
 
-module.exports = { register };
+const login = async(req,res,next) => {
+    console.log(req.body);
+    try {
+        
+        const data = req.body;
+        if(data.password==""){
+            res.json({status:false,message:"password is required"})
+        }
+
+        const user = await userModel.findOne({username:data.username})
+        const passwordMatch = await bcrypt.compare(data.password,user.password)
+
+        const userResponse = user.toObject();
+        delete userResponse.password
+        if(passwordMatch){
+            res.json({userResponse,status:true})
+        }else{
+            res.json({message:"incorrect Password", status:false})
+        }
+
+    } catch (error) {
+        res.json({message:error.message})
+    }
+};
+
+module.exports = { register,login };

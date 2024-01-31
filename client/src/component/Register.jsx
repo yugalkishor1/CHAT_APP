@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import axios from "axios"
-import {useNavigate} from "react-router-dom"
+import {useNavigate,Link} from "react-router-dom"
 import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { registerRoute } from '../Routes/APIRputes'
+import { registerRoute } from '../Routes/apiRoutes'
 
 function Register() {
 
@@ -14,6 +14,13 @@ function Register() {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [confirmPassword,setConfirmPassword] = useState("")
+
+
+  useEffect(()=>{
+    if(localStorage.getItem("chat-app-user")){
+      navigate("/chat")
+    }
+  },[])
 
   const handleValidation = () => {
 
@@ -83,6 +90,7 @@ function Register() {
         <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)}/>
         <input type="password" value={confirmPassword} placeholder='confirm password' onChange={(e)=>setConfirmPassword(e.target.value)}/>
         <input type='submit' />
+        <p>Alreadu have an Account?<span><Link to="/login">Login</Link></span></p>
       </form>
       <ToastContainer/>
     </div>
