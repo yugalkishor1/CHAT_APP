@@ -53,4 +53,34 @@ const login = async(req,res,next) => {
     }
 };
 
-module.exports = { register,login };
+const setavatar = async (req,res,next) => {
+
+    try {
+        
+        const userId = req.params.id;
+        const image = req.body.image;
+
+        console.log(userId);
+        console.log(image);
+
+        const user = await userModel.findByIdAndUpdate(userId,{
+            isAvataeImageset:true,
+            avtarImage:image
+        })
+        console.log(user);
+       
+        if(user){
+            const userResponse = user.toObject()
+            delete userResponse.password
+            res.send({isSet:user.isAvataeImageset,image:user.avtarImage,userResponse,message:"Avatar set successfully"})
+        }else{
+            res.send({isSet:false, message:"ERROR:Something went wrong with Avatar setting, Please Try Again"})
+        } 
+
+    } catch (error) {
+        res.json({status:true,message:error.message})
+    }
+
+}
+
+module.exports = { register,login,setavatar };

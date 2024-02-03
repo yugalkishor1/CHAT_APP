@@ -52,7 +52,7 @@ function Login() {
             toast.success(`${data.userResponse.username} successfully Registered`)
           })();
           
-          navigate("/chat")
+          navigate("/setavatar")
         }else{
           (function notify(){
             toast.error(`${data.message} `,{autoClose:3000})
@@ -66,12 +66,12 @@ function Login() {
   
 
   return (
-    <div>
-      <form onSubmit={(e)=>{handleSubmit(e)}}>
-        <input type="text" value={username} placeholder='username' onChange={(e)=>setUsername(e.target.value)} />
-        <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)}/>
-        <input type='submit' />
-      <p>Don't have account?<span><Link to="/register">Register</Link></span></p>
+    <div className=' min-h-screen bg-blue-300 flex justify-center items-center '>
+      <form onSubmit={(e)=>{handleSubmit(e)}} className='m-4 p-2 border-2 border-gray-500 rounded flex flex-col'>
+        <input type="text" value={username} placeholder='username' onChange={(e)=>setUsername(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+        <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+        <input type='submit' className='border rounded broder-white text-white bg-red-500 p-2 hover:bg-red-700 cursor-pointer' />
+      <p>Don't have account?<span className='hover:underline'><Link to="/register">Register</Link></span></p>
       </form>
       <ToastContainer/>
     </div>

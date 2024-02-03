@@ -82,18 +82,21 @@ function Register() {
   
 
   return (
-    <div>
-      <form onSubmit={(e)=>{handleSubmit(e)}}>
-        <input type="text" value={name} placeholder='name' onChange={(e)=>setName(e.target.value)}/>
-        <input type="text" value={username} placeholder='username' onChange={(e)=>setUsername(e.target.value)} />
-        <input type="email" value={email} placeholder='email' onChange={(e)=>setEmail(e.target.value)}/>
-        <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)}/>
-        <input type="password" value={confirmPassword} placeholder='confirm password' onChange={(e)=>setConfirmPassword(e.target.value)}/>
-        <input type='submit' />
-        <p>Alreadu have an Account?<span><Link to="/login">Login</Link></span></p>
-      </form>
-      <ToastContainer/>
+    <div className='flex items-center justify-center min-h-screen bg-blue-300' >
+        <div className='border-2 border-red-300 p-4 '>
+        <form onSubmit={(e)=>{handleSubmit(e)}} className=' flex flex-col'>
+          <input type="text" value={name} placeholder='name' onChange={(e)=>setName(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+          <input type="text" value={username} placeholder='username' onChange={(e)=>setUsername(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+          <input type="email" value={email} placeholder='email' onChange={(e)=>setEmail(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+          <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+          <input type="password" value={confirmPassword} placeholder='confirm password' onChange={(e)=>setConfirmPassword(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
+          <input type='submit'  className='border rounded broder-white text-white bg-red-500 p-2 hover:bg-red-700 cursor-pointer'/>
+          <p>Alreadu have an Account?<span className='hover:underline'><Link to="/login">Login</Link></span></p>
+        </form>
+        <ToastContainer/>
+      </div>
     </div>
+  
   )
 }
 

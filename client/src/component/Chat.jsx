@@ -2,7 +2,7 @@ import React from 'react'
 
 function Chat() {
   return (
-    <div>Chat</div>
+    <div className='bg-green-700 min-h-screen'>Chat</div>
   )
 }
 
