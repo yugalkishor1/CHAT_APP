@@ -27,13 +27,13 @@ h1{
 .currentuser{
     background-color:orange;
     padding: 2rem;
-    /* display: flex;
-    flex-direction:column; */
-
+}
+.select{
+    background-color: blue;
 }
 `;
 
-function Contacts({allUsers,currentUser}) {
+function Contacts({allUsers,currentUser, chatChange}) {
 
     const [currentUserImage,setCurrentUserImage] = useState()
     const [currentUserName,setCurrentUserName] = useState()
@@ -47,36 +47,38 @@ function Contacts({allUsers,currentUser}) {
         }
     },[currentUser])
 
-    const handleChat = (chat) => {
-        setCurrentChat(chat)
+    const changeCurrentChat = (index, user) => {
+        setCurrentCurrentSelected(index);
+        chatChange(user)
     }
+   
 
   return (
     <>
     { 
         (currentUserImage && currentUserName ? 
             <Container>
-                <div>
-
-
-                </div>
-                {allUsers.map((user,index)=>(
+                {allUsers.map((user,index)=>{
+                    return (
                     <div 
-                    key={index}
-                    className={`contacts ${index===currentSelected ? "selected" : ""}`}
-                    >
-                        <div>
-                            <img 
-                            src={`data:image/svg+xml;base64,${user.avtarImage}`} alt="avatar"
-                            className='avatar'
-                            />
-                            <h1>
-                                {user.username}
-                            </h1>
+                        className={`contacts ${index==currentSelected ? "select": ""}`}
+                        key={index}
+                        onClick={()=>{changeCurrentChat(index,user)}}
+                        >
+                        <div 
+                        className='avatar'
+                        key={index}>
+                            <img src={`data:image/svg+xml;base64,${user.avtarImage}`} alt="avatar" />
                         </div>
-                      
+                        <h1>
+                            {user.username}
+                        </h1>
+
                     </div>
-                ))}
+                    )
+                    
+                })}
+
                 <div className='currentuser'>
                     <img 
                     src={`data:image/svg+xml;base64,${currentUser.avtarImage}`} alt="avatar" 

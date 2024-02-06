@@ -4,6 +4,8 @@ import styled from "styled-components"
 import axios from 'axios'
 import { allUsersRoute } from '../Routes/apiRoutes'
 import Contacts from './Contacts'
+import Welcome from './Welcome'
+import ChatContainer from './ChatContainer'
 
 const Container =  styled.div`
 background-color:blueviolet;
@@ -26,36 +28,57 @@ align-items: center;
     grid-template-columns:15% 85%;
   }
 }
+.chat{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 `
 function Chat() {
   const navigate = useNavigate()
   const [allUsers,setAllUsers] = useState([])
   const [currentUser,setCurrentUser] = useState(undefined)
-  const user = JSON.parse(localStorage.getItem("chat-app-user"))
+  const [currentChat,setCurrentChat] = useState(undefined)
+ 
 
   useEffect(()=>{
-    
-    if(user && !user.isAvataeImageset){
-      navigate("/setavatar")
-    }else{
+
+    const user = JSON.parse(localStorage.getItem("chat-app-user"))
+
+    if(user && user.isAvataeImageset){
       setCurrentUser(user)
+    }else{
+      navigate("/setavatar")
     }
   },[])
 
   useEffect(() => {
     (async function fetchData() {
         if (currentUser && currentUser._id) {
-          const response = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-          setAllUsers(response.data);
+          const {data} = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+         setAllUsers(data) 
         }
     })();
   }, [currentUser]);
 
+  const handleChatChange = (user) => {
+    setCurrentChat(user)
+    console.log("chat is chaning");
+  }
   return (
     <Container>
-      <div className='container'>
-        <Contacts allUsers={allUsers} currentUser={currentUser} />
-      </div>
+     
+        {allUsers && allUsers.length > 0 ?
+          <div className='container'>  
+            <Contacts allUsers={allUsers} currentUser={currentUser} chatChange={handleChatChange} />
+          {
+            currentChat ? 
+            <ChatContainer user={currentChat}/>
+            : <Welcome currentUser={currentUser}/> 
+          }
+          </div>
+        :<div>Loding</div>  }
+       
     </Container>
   )
 }

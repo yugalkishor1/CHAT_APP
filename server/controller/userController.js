@@ -82,5 +82,13 @@ const setavatar = async (req,res,next) => {
     }
 
 }
+const getAllUsers = async (req,res,next) => {
+    try {
+        const allusers = await userModel.find({_id:{$ne:req.params.id}})
+        res.json(allusers)
+    } catch (error) {
+        res.json(error.message)
+    }
+}
 
-module.exports = { register,login,setavatar };
+module.exports = { register,login,setavatar,getAllUsers };
