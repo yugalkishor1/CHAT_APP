@@ -1,31 +1,47 @@
 import React from 'react'
 import styled from 'styled-components'
+import Logout from './Logout';
+import ChatInput from './ChatInput';
+import Messages from './Messages';
 
 const Container = styled.div`
-display: grid;
-grid-template-rows: 10% 90% 10%;
-height: 100%;
-background-color:blue;
-color: white;
+.chat-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+.user-details{
+    /* display: flex;
+    align-items: center; */
+}
+.avatar{
+    img{
+        height: 3 rem;
+    }
+}
+`
 
-> .user{
-    background-color:green;
-}
-> .container{
-    background-color: yellow;
-}
-> .current-user{
-    background-color:red;
-}
-`;
+const handleMsg = (msg) => {
+    alert("msg is sent")
+  }
+
 
 function ChatContainer({user}) {
-    console.log(user);
+
   return (
     <Container>
-        <div className='user'>{user.username} hi</div>
-        <div className='container'>h</div>
-        <div className='current-user'>h</div>
+        <div className='chat-header'>
+            <div className='user-details'>
+                <div className='avatar'>
+                    <img src={`data:image/svg+xml;base64,${user.avtarImage}`} alt="" />
+                </div>
+                <h3>{user.username}</h3>
+            </div>
+            <Logout/>
+        </div>
+        <Messages/>              
+        <ChatInput handleMsg={handleMsg} />
     </Container>
   )
 }

@@ -61,10 +61,10 @@ function Chat() {
     })();
   }, [currentUser]);
 
-  const handleChatChange = (user) => {
-    setCurrentChat(user)
-    console.log("chat is chaning");
+  const handleChatChange = (chat) => {
+    setCurrentChat(chat)
   }
+
   return (
     <Container>
      
