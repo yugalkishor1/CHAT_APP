@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Logout from './Logout';
 import ChatInput from './ChatInput';
-import Messages from './Messages';
+import axios from "axios"
+import {sendMessage} from "../Routes/apiRoutes.js"
+import { getAllMessage } from '../Routes/apiRoutes.js'
 
 const Container = styled.div`
 .chat-header{
@@ -20,14 +22,59 @@ const Container = styled.div`
         height: 3 rem;
     }
 }
+.chat-message{
+    height: 70vh;
+    background-color:white;
+    overflow: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+.message{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+.content{
+    /* max-width: 40%; */
+    /* overflow-wrap:break-word; */
+    padding:1rem;
+    border-radius:1rem;
+    background-color:red;
+}
+.you{
+    justify-content: flex-end;
+}}
 `
 
-const handleMsg = (msg) => {
-    alert("msg is sent")
-  }
+function ChatContainer({user,currentUser}) {
 
+    const [allMessages,setAllMessages] = useState([]);
 
-function ChatContainer({user}) {
+    const fetchMsg = async() =>{
+        try {
+            const response = await axios.post(getAllMessage,{from:currentUser._id,to:user._id})
+
+            setAllMessages(response.data);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(()=>{
+       fetchMsg();
+    },[user])
+
+    const handleMsg = async(msg) => {
+        try {
+            const {data} = await axios.post(sendMessage,{message:msg,from:currentUser._id,to:user._id})
+            console.log(data);
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+      }
+    
 
   return (
     <Container>
@@ -40,7 +87,25 @@ function ChatContainer({user}) {
             </div>
             <Logout/>
         </div>
-        <Messages/>              
+        <div className='chat-message'>
+            {
+                allMessages.map((msg,index)=>{
+                    return(
+                        <div 
+                        key={index} 
+                        className={`message ${msg.fromSelf ? "you" : "other"}`}
+                        >
+                            <div>
+                                <p className='content'> 
+                                    {msg.message}
+                                </p>
+                            </div>
+
+                        </div>
+                    )
+                })
+            }
+        </div>             
         <ChatInput handleMsg={handleMsg} />
     </Container>
   )

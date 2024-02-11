@@ -73,7 +73,7 @@ function Chat() {
             <Contacts allUsers={allUsers} currentUser={currentUser} chatChange={handleChatChange} />
           {
             currentChat ? 
-            <ChatContainer user={currentChat}/>
+            <ChatContainer user={currentChat} currentUser={currentUser}/>
             : <Welcome currentUser={currentUser}/> 
           }
           </div>

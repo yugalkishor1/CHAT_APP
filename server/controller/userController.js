@@ -29,7 +29,6 @@ const register = async (req, res, next) => {
 };
 
 const login = async(req,res,next) => {
-    console.log(req.body);
     try {
         
         const data = req.body;

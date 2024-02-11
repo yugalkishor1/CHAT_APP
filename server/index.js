@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const { userModel } = require("./model/userModel.js");
 const userRouter = require("./routes/userRoute.js");
+const messageRouter = require("./routes/messageRoute.js");
 
 dotenv.config();
 
@@ -16,10 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
 app.use("/api/auth", userRouter);
+app.use("/api/chat", messageRouter);
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
-        console.log("mongodb connected successfully");
+        // console.log("mongodb connected successfully");
     })
     .catch((err) => {
         console.log("mongodb connection error", err);
