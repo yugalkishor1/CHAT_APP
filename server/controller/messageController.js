@@ -30,7 +30,6 @@ const getAllMessage = async(req,res) => {
 
     try {
        const messages = await messageModel.find({"message.users":{$all:[from,to]}}).sort({updatedAt:1})
-       console.log(messages);
 
        const projectMessages = messages.map((msg)=>{
         return {
@@ -38,7 +37,6 @@ const getAllMessage = async(req,res) => {
             message: msg.message.text
         }
        })
-       console.log(projectMessages);
 
        return res.json(projectMessages)
        
