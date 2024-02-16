@@ -5,6 +5,7 @@ import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { loginRoute } from '../Routes/apiRoutes'
 import Chat from "../component/Chat"
+import styled from 'styled-components'
 
 function Login() {
 
@@ -66,16 +67,59 @@ function Login() {
   
 
   return (
-    <div className=' min-h-screen bg-blue-300 flex justify-center items-center '>
-      <form onSubmit={(e)=>{handleSubmit(e)}} className='m-4 p-2 border-2 border-gray-500 rounded flex flex-col'>
-        <input type="text" value={username} placeholder='username' onChange={(e)=>setUsername(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-        <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-        <input type='submit' className='border rounded broder-white text-white bg-red-500 p-2 hover:bg-red-700 cursor-pointer' />
-      <p>Don't have account?<span className='hover:underline'><Link to="/register">Register</Link></span></p>
+    <Container>
+      <form onSubmit={(e)=>{handleSubmit(e)}} className='form' >
+        <input 
+        type="text" 
+        value={username} 
+        placeholder='username' 
+        onChange={(e)=>setUsername(e.target.value)} 
+        />
+
+        <input 
+        type="password" 
+        value={password} 
+        placeholder='password' 
+        onChange={(e)=>setPassword(e.target.value)} 
+        />
+
+        <input type='submit' className="btn" style={{border:"none", borderRadius:"5px"}}  />
+
+        <p>Don't have account?<span><Link to="/register">Register</Link></span></p>
       </form>
       <ToastContainer/>
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:#6d6666;
+
+    .form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:75vh;
+    width:40vw; 
+    background-color: #d7c9c9;
+    flex-direction: column;
+        input{
+			padding:0.5rem;
+			margin: 0.5rem;
+            border: none;
+            border-radius:5px;
+		}
+    }
+
+    .btn:hover{
+    background-color: black;
+    color: white;
+    border: none;
+    }
+`;
 
 export default Login

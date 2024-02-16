@@ -5,12 +5,13 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Buffer } from "buffer";
 import { setavatarRoute } from '../Routes/apiRoutes';
+import styled from 'styled-components';
 
 function Setavatar() {
   const api = "https://api.multiavatar.com/456789";
   const navigate = useNavigate();
   const [avatars, setAavatars] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function Setavatar() {
         data.push(buffer);
       }
       setAavatars(data);
-      setIsLoading(false);
+      setIsLoading(true);
     })();
   }, []);
 
@@ -60,30 +61,65 @@ function Setavatar() {
   };
 
   return (
-    <>
-      <div className='bg-blue-300 min-h-screen flex flex-col justify-center items-center'>
-        <h1 className='text-4xl'>
-          Pick an Avatar as your Profile picture
-        </h1>
-        <div className='flex flex-row mt-4'>
-          {avatars.map((avatar, index) => {
-            return (
-              <div className={`rounded-full w-20 h-20 border ${selectedAvatar === index ? " border-4 border-red-700" : "border-gray-400"} rounded-md p-1 bg-black-700`}
-                key={index}
-                onClick={() => { setSelectedAvatar(index) }}
-              >
-                <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" />
-              </div>
-            );
-          })}
-        </div>
-        <button className='border rounded border-blue text-white bg-red-600 p-2 hover:bg-red-800 cursor-pointer mt-4' onClick={setProfilePicture}>
-          Set as Profile picture
-        </button>
-      </div>
-      <ToastContainer />
-    </>
+    <Container>
+        {isLoading? 
+            <div>
+            <h1>
+            Pick an Avatar as your Profile picture
+            </h1>
+            <div className='avatars'>
+            {avatars.map((avatar, index) => {
+                return (
+                <div className={`avatar ${selectedAvatar===index ? "selected" : ""}`}
+                    key={index}
+                    onClick={() => { setSelectedAvatar(index) }}
+                >
+                    <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" />
+                </div>
+                );
+            })}
+            </div>
+            <button onClick={setProfilePicture} className='btn'>
+            Set as Profile picture
+            </button>
+            </div>
+            :<div>Loading....</div>}
+        <ToastContainer />
+    </Container>
   );
 }
+
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:#6d6666;
+    .avatars{
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+        margin: 10px;
+    }
+    .avatar{
+        height: 50px;
+        width: 50px;
+        border-radius:999px;
+        padding: 15px;
+        margin: 10px;
+    }
+    .btn{
+        padding: 10px;
+        border-radius:10px;
+        border: none;
+    }
+    .btn:hover{
+        background-color:black;
+        color: white;
+    }
+    .selected{
+        border: 5px solid red;
+    }
+`;
 
 export default Setavatar;

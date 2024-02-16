@@ -6,8 +6,7 @@ import Register from './component/Register'
 import Login from './component/Login'
 import Chat from "./component/Chat"
 import Setavatar from './component/Setavatar'
-import "./index.css"
-import"./app.css"
+
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>

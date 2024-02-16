@@ -1,38 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-const Container = styled.div`
-background-color:green;
-height: 85vh;
-
-img{
-    height: 2rem;
-}
-h1{
-    color: black;
-    text-transform:uppercase;
-}
-.contacts{
-    display: flex;
-    flex-direction:column;
-    overflow: auto;
-    width: 85%;
-    gap: 1rem;
-    background-color: white;
-    padding: 1rem;
-    margin: 1rem;
-    overflow: auto;
-    box-sizing: border-box;
-}
-.currentuser{
-    background-color:orange;
-    padding: 2rem;
-}
-.select{
-    background-color: blue;
-}
-`;
-
 function Contacts({allUsers,currentUser, chatChange}) {
 
     const [currentUserImage,setCurrentUserImage] = useState()
@@ -58,26 +26,28 @@ function Contacts({allUsers,currentUser, chatChange}) {
     { 
         (currentUserImage && currentUserName ? 
             <Container>
-                {allUsers.map((user,index)=>{
-                    return (
-                    <div 
-                        className={`contacts ${index==currentSelected ? "select": ""}`}
-                        key={index}
-                        onClick={()=>{changeCurrentChat(index,user)}}
-                        >
+                <div className='upper-div'>
+                    {allUsers.map((user,index)=>{
+                        return (
                         <div 
-                        className='avatar'
-                        key={index}>
-                            <img src={`data:image/svg+xml;base64,${user.avtarImage}`} alt="avatar" />
-                        </div>
-                        <h1>
-                            {user.username}
-                        </h1>
+                            className={`contacts ${index==currentSelected ? "select": ""}`}
+                            key={index}
+                            onClick={()=>{changeCurrentChat(index,user)}}
+                            >
+                            <div 
+                            className='avatar'
+                            key={index}>
+                                <img src={`data:image/svg+xml;base64,${user.avtarImage}`} alt="avatar" />
+                            </div>
+                            <h1>
+                                {user.username}
+                            </h1>
 
-                    </div>
-                    )
-                    
-                })}
+                        </div>
+                        )
+                        
+                    })}
+                </div>
 
                 <div className='currentuser'>
                     <img 
@@ -91,5 +61,58 @@ function Contacts({allUsers,currentUser, chatChange}) {
     </>
   )
 }
+
+    const Container = styled.div`
+    background-color:#6d6666;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    .upper-div{
+        height: 85%;
+        overflow: auto;
+    }
+
+    .contacts{
+        display: flex;
+        flex-direction:row;
+        align-items: center;
+        background-color: white;
+        padding: 1rem;
+        margin: 1rem;
+        box-sizing: border-box;
+    }
+
+    .currentuser{
+        background-color:orange;
+        padding: 2rem;
+        height: 15%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        
+    img{
+        max-width:100%;
+        /* max-height:100%;3 */
+    }
+    h1{
+        color: black;
+        text-transform:uppercase;
+        max-width:100%;
+        max-height:100%;
+    }
+    }
+    .select{
+        background-color: blue;
+    }
+    .avatar{
+        height: 50px;
+        width: 50px;
+    }
+    `;
+
 
 export default Contacts

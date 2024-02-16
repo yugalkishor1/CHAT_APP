@@ -8,33 +8,6 @@ import Welcome from './Welcome'
 import ChatContainer from './ChatContainer'
 import io from "socket.io-client"
 
-const Container =  styled.div`
-background-color:blueviolet;
-width: 100vw;
-height: 100vh;
-display: flex;
-flex-direction:column;
-justify-content: center;
-align-items: center;
-.container{
-  background-color:red;
-  height: 85vh;
-  width: 85vw;
-  display: grid;
-  grid-template-columns:25% 75%;
-  @media screen and (min-width: 720px) and (max-width:1080px){
-    grid-template-columns:35% 65%;
-  }
-  @media screen and (min-width: 360px) and (max-width:480px){
-    grid-template-columns:15% 85%;
-  }
-}
-.chat{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-`
 function Chat() {
   const socket = useRef()
   const navigate = useNavigate()
@@ -98,4 +71,29 @@ function Chat() {
   )
 }
 
+const Container =  styled.div`
+
+background-color:blueviolet;
+width: 97vw;
+height: 97vh;
+display: flex;
+overflow: hidden;
+flex-direction:column;
+justify-content: center;
+align-items: center;
+.container{
+  background-color:red;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  overflow: hidden;
+  grid-template-columns:25% 75%;
+
+}
+.chat{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+`
 export default Chat

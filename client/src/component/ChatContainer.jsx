@@ -7,46 +7,6 @@ import {sendMessage} from "../Routes/apiRoutes.js"
 import { getAllMessage } from '../Routes/apiRoutes.js'
 import {v4 as uuidv4} from "uuid"
 
-const Container = styled.div`
-.chat-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-}
-.user-details{
-    /* display: flex;
-    align-items: center; */
-}
-.avatar{
-    img{
-        height: 3 rem;
-    }
-}
-.chat-message{
-    height: 70vh;
-    background-color:white;
-    overflow: auto;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-.message{
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-}
-.content{
-    /* max-width: 40%; */
-    /* overflow-wrap:break-word; */
-    padding:1rem;
-    border-radius:1rem;
-    background-color:red;
-}
-.you{
-    justify-content: flex-end;
-}}
-`
-
 function ChatContainer({user,currentUser,socket}) {
 
     const [allMessages,setAllMessages] = useState([]);
@@ -137,5 +97,47 @@ function ChatContainer({user,currentUser,socket}) {
     </Container>
   )
 }
+
+const Container = styled.div`
+    display: flex;
+    height: 100%;
+    overflow: auto;
+    flex-direction: column;
+    .chat-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+        /* height: 10%; */
+    }
+
+    .avatar{
+        img{
+            height: 3 rem;
+        }
+    }
+    .chat-message{
+        height: 90%;
+        background-color:white;
+        overflow: auto;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+    .message{
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+    }
+    .content{
+        /* max-width: 40%; */
+        /* overflow-wrap:break-word; */
+        padding:1rem;
+        border-radius:1rem;
+        background-color:red;
+    }
+    .you{
+        justify-content: flex-end;
+    }}
+    `
 
 export default ChatContainer

@@ -4,6 +4,7 @@ import {useNavigate,Link} from "react-router-dom"
 import {toast, ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { registerRoute } from '../Routes/apiRoutes'
+import styled from 'styled-components'
 
 function Register() {
 
@@ -82,22 +83,88 @@ function Register() {
   
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-blue-300' >
-        <div className='border-2 border-red-300 p-4 '>
-        <form onSubmit={(e)=>{handleSubmit(e)}} className=' flex flex-col'>
-          <input type="text" value={name} placeholder='name' onChange={(e)=>setName(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-          <input type="text" value={username} placeholder='username' onChange={(e)=>setUsername(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-          <input type="email" value={email} placeholder='email' onChange={(e)=>setEmail(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-          <input type="password" value={password} placeholder='password' onChange={(e)=>setPassword(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-          <input type="password" value={confirmPassword} placeholder='confirm password' onChange={(e)=>setConfirmPassword(e.target.value)} className='m-4 p-2 border-2 border-gray-500 rounded'/>
-          <input type='submit'  className='border rounded broder-white text-white bg-red-500 p-2 hover:bg-red-700 cursor-pointer'/>
-          <p>Alreadu have an Account?<span className='hover:underline'><Link to="/login">Login</Link></span></p>
-        </form>
-        <ToastContainer/>
-      </div>
-    </div>
+    <Conatiner>
+        <div className='container'>
+			<form onSubmit={(e)=>{handleSubmit(e)}} className='form'>
+				<input 
+				type="text" 
+				value={name} 
+				placeholder='name' 
+				onChange={(e)=>setName(e.target.value)} 
+				/>
+
+				<input 
+				type="text" 
+				value={username} 
+				placeholder='username' 
+				onChange={(e)=>setUsername(e.target.value)} 
+				/>
+
+				<input 
+				type="email" 
+				value={email} 
+				placeholder='email' 
+				onChange={(e)=>setEmail(e.target.value)}
+				/>
+
+				<input 
+				type="password" 
+				value={password} 
+				placeholder='password' 
+				onChange={(e)=>setPassword(e.target.value)} 
+				/>
+
+				<input 
+				type="password" 
+				value={confirmPassword} 
+				placeholder='confirm password' 
+				onChange={(e)=>setConfirmPassword(e.target.value)} 
+				/>
+
+				<input  className="btn" type='submit' style={{border:"none", borderRadius:"5px"}}  />
+
+				<p>Already have an Account?<span className='link'><Link to="/login">Login</Link></span></p>
+			</form>
+        <ToastContainer autoClose={3000}/>
+      	</div>
+    </Conatiner>
   
   )
 }
+
+const Conatiner = styled.div`
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:#6d6666;
+
+	.container{
+	display: flex;
+    align-items: center; 
+    justify-content: center; 
+    height:75vh;
+    width:35vw; 
+    background-color: #d7c9c9;
+	
+    }
+	.form{
+	display: flex;
+    align-items: center; 
+    justify-content: center; 
+	flex-direction: column;
+		input{
+			padding:0.5rem;
+			margin: 0.5rem;
+      border: none;
+      border-radius:5px;
+		}
+	}
+  .btn:hover{
+    background-color: black;
+    color: white;
+    border: none;
+  }
+`;
 
 export default Register
