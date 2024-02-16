@@ -32,7 +32,7 @@ function Chat() {
       // });
       if(currentUser){
         socket.current = io("http://localhost:3000");
-        console.log(currentUser._id);
+        // console.log(currentUser._id);
         socket.current.emit("add-user",currentUser._id)
       }
 

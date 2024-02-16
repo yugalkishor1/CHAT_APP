@@ -4,23 +4,69 @@ import styled from "styled-components"
 import {FaPaperPlane} from "react-icons/fa"
 import { BsEmojiSmileFill } from "react-icons/bs";
 
+
+function ChatInput({handleMsg}) {
+  const [showEmojiPicker,setShowEmojiPicker] = useState(false)
+  const [msg, setMsg] = useState("")
+
+  const handleEmojiHideShow = () => {
+    setShowEmojiPicker(!showEmojiPicker)
+  }
+
+  const handleEmojiClick = (event,emoji) => {
+
+
+      let message = msg;
+      
+      message = message + event.emoji;
+      setMsg(message)
+  }
+
+  const sendChat = (e) =>{
+      e.preventDefault();
+      if(msg.length>0){
+        handleMsg(msg)
+        setMsg("")
+      }
+  }
+
+  return (
+    <Container>
+      <div className="button-container">
+        <div className="emoji">
+          {/* <BsEmojiSmileFill onClick={handleEmojiHideShow}/> */}
+          {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick}/>}
+        </div>
+      </div>
+
+      <form className='input-container' onSubmit={(e)=>{sendChat(e)}}>
+        <input className="inputs" type="text" placeholder='type your message here'
+        value={msg} 
+        onChange={(e)=>{setMsg(e.target.value)}}
+        />
+        <button className='submit'><FaPaperPlane/></button>
+      </form>
+    </Container>
+  )
+}
+
+
+
 const Container = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 5% 95%;
   background-color: #080420;
   padding: 0 2rem;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    padding: 0 1rem;
-    gap: 1rem;
-  }
+ 
   .button-container {
     display: flex;
     align-items: center;
     color: white;
     gap: 1rem;
     .emoji {
-      position: relative;
+      position: absolute;
+      
       svg {
         font-size: 1.5rem;
         color: #ffff00c8;
@@ -32,6 +78,7 @@ const Container = styled.div`
         background-color: #080420;
         box-shadow: 0 5px 10px #9a86f3;
         border-color: #9a86f3;
+        position: absolute;
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
           width: 5px;
@@ -60,10 +107,12 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     gap: 2rem;
+     height: 4rem; 
     background-color: #ffffff34;
+    position: relative; 
     input {
       width: 90%;
-      height: 60%;
+      height: 100%;
       background-color: transparent;
       color: white;
       border: none;
@@ -85,12 +134,6 @@ const Container = styled.div`
       align-items: center;
       background-color: #9a86f3;
       border: none;
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
-        padding: 0.3rem 1rem;
-        svg {
-          font-size: 1rem;
-        }
-      }
       svg {
         font-size: 2rem;
         color: white;
@@ -99,48 +142,6 @@ const Container = styled.div`
   }
 `;
 
-function ChatInput({handleMsg}) {
-  const [showEmojiPicker,setShowEmojiPicker] = useState(false)
-  const [msg, setMsg] = useState("")
 
-  const handleEmojiHideShow = () => {
-    setShowEmojiPicker(!showEmojiPicker)
-  }
-
-  const handleEmojiClick = (event,emoji) => {
-
-      let message = msg;
-      
-      message = message + emoji.target.alt;
-      setMsg(message)
-  }
-
-  const sendChat = (e) =>{
-      e.preventDefault();
-      if(msg.length>0){
-        handleMsg(msg)
-        setMsg("")
-      }
-  }
-
-  return (
-    <Container>
-      <div className="button-container">
-        <div className="emoji">
-          <BsEmojiSmileFill onClick={handleEmojiHideShow}/>
-          {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick}/>}
-        </div>
-      </div>
-
-      <form className='input-container' onSubmit={(e)=>{sendChat(e)}}>
-        <input type="text" placeholder='type your message here'
-        value={msg} 
-        onChange={(e)=>{setMsg(e.target.value)}}
-        />
-        <button className='submit'><FaPaperPlane/></button>
-      </form>
-    </Container>
-  )
-}
 
 export default ChatInput
