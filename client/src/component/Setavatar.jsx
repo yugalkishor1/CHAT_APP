@@ -18,6 +18,10 @@ function Setavatar() {
     if (!localStorage.getItem("chat-app-user")) {
       navigate("/login");
     }
+
+    if(JSON.parse(localStorage.getItem("chat-app-user")).isAvataeImageset==true){
+      navigate("/chat")
+    }
   }, []);
 
   useEffect(() => {

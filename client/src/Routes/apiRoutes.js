@@ -5,3 +5,4 @@ export const setavatarRoute = `${host}/api/auth/setavatar`
 export const allUsersRoute = `${host}/api/auth/allusers`
 export const sendMessage = `${host}/api/chat/sendMessage`
 export const getAllMessage = `${host}/api/chat/getMessages`
+export const getUserBySearch = `${host}/api/auth/getUserBySearch`

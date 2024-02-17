@@ -49,7 +49,7 @@ io.on("connection",(socket)=>{
     console.log("connected");
 
     socket.on("add-user",(userId)=>{
-        console.log(userId);
+        // console.log(userId);
         onlineUser.set(userId,socket.id)
     })
 

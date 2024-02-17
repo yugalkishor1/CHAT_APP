@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { userModel } = require("../model/userModel.js");
 const bcrypt = require("bcrypt")
 
@@ -81,6 +82,7 @@ const setavatar = async (req,res,next) => {
     }
 
 }
+
 const getAllUsers = async (req,res,next) => {
     try {
         const allusers = await userModel.find({_id:{$ne:req.params.id}})
@@ -90,4 +92,21 @@ const getAllUsers = async (req,res,next) => {
     }
 }
 
-module.exports = { register,login,setavatar,getAllUsers };
+const getUserBySearch = async(req,res) => {
+    const {input} = req.body;
+    const id = req.params.id
+
+    try {
+        
+        const data = await userModel.find({$and :[
+            {username:{$regex:`^${input}`,$options:"i"}},
+            {username:{$ne:id}}
+        ]});
+        res.json({data})
+
+    } catch (error) {
+        res.json({message:error.message})
+    }
+}
+
+module.exports = { register,login,setavatar,getAllUsers,getUserBySearch };
